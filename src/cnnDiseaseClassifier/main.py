@@ -1,0 +1,1 @@
+from cnnDiseaseClassifier import logger
