@@ -1,4 +1,4 @@
-from cnnDiseaseClassifier.entity.config_entity  import (DataIngestionConfig,PrepareBaseModelConfig)
+from cnnDiseaseClassifier.entity.config_entity  import (DataIngestionConfig,PrepareBaseModelConfig,TrainModelConfig)
 from cnnDiseaseClassifier.constants import *
 from cnnDiseaseClassifier.utils.common import read_yaml, create_directories
 
@@ -37,3 +37,23 @@ class ConfigurationManager:
             params_classes= self.params.CLASSES
         )
         return prepare_base_model_config
+    
+    def get_training_config(self) ->TrainModelConfig:
+        config=self.config.training
+        base_model_config = self.config.prepare_base_model
+        training_data = os.path.join(self.config.data_ingestion.unzip_dir,"kidney-ct-scan-image")
+
+        create_directories([Path(config.root_dir)])
+
+        training_config = TrainModelConfig(
+            root_dir = Path(config.root_dir),
+            trained_model_path = Path(config.trained_model_path), 
+            updated_base_model_path = Path(base_model_config.updated_base_model_path), 
+            training_data = Path(training_data), 
+            params_epochs =  self.params.EPOCHS,
+            params_batch_size = self.params.BATCH_SIZE,
+            params_is_augmentation = self.params.AUGMENTATION, 
+            params_image_size = self.params.IMAGE_SIZE 
+
+        )
+        return training_config
