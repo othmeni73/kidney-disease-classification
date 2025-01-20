@@ -1,6 +1,6 @@
 from cnnDiseaseClassifier import logger
 from cnnDiseaseClassifier.pipeline.stage_01_data_ingestion import DataIngestionTrainingPipeline
-from cnnDiseaseClassifier.pipeline.stage_02_prepare_base_model import PrepareBaseModelPipeline
+from cnnDiseaseClassifier.pipeline.stage_02_prepare_base_model import PrepareBaseModelPipeline # type: ignore
 STAGE_NAME = "Data Ingestion stage"
 
 try:
