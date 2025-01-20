@@ -9,7 +9,7 @@ from box import ConfigBox
 from pathlib import Path
 from typing import Any
 import base64
-
+import gdown
 @ensure_annotations
 def read_yaml(path_to_yaml:Path) -> ConfigBox:
     """
@@ -119,3 +119,8 @@ def decodeImage(imgstring,fileName):
 def encodeImageIntoBase64(croppedImagePath):
     with open(croppedImagePath,"rb") as f:
         return base64.b64encode(f.read())
+    
+def download_data_gdrive(url):
+    file_id=url.split("/")[-2]
+    prefix="https/drive.google.com/uc?/export=download&id="
+    gdown.download(prefix+file_id,"Kidney-CT-Scan-data.zip")
