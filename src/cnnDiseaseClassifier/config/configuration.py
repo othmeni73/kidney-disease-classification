@@ -1,4 +1,4 @@
-from cnnDiseaseClassifier.entity.config_entity  import (DataIngestionConfig,PrepareBaseModelConfig,TrainModelConfig)
+from cnnDiseaseClassifier.entity.config_entity  import (DataIngestionConfig,PrepareBaseModelConfig,TrainModelConfig,EvaluationConfig)
 from cnnDiseaseClassifier.constants import *
 from cnnDiseaseClassifier.utils.common import read_yaml, create_directories
 
@@ -57,3 +57,13 @@ class ConfigurationManager:
 
         )
         return training_config
+    def get_evaluation_config(self) -> EvaluationConfig:
+        eval_config = EvaluationConfig(
+            path_of_model="artifacts/training/model.h5",
+            training_data="artifacts/data_ingestion/kidney-ct-scan-image",
+            mlflow_uri="https://dagshub.com/zeineb.udacity/my-first-repo.mlflow",
+            all_params=self.params,
+            params_image_size=self.params.IMAGE_SIZE,
+            params_batch_size=self.params.BATCH_SIZE
+        )
+        return eval_config
